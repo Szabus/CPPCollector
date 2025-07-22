@@ -1,5 +1,7 @@
 #include <iostream>
+#include <fstream>
 #include "SensorSimulator.h"
+
 
 int main() {
     SensorSimulator simulator(20.0, 30.0, 990.0, 1020.0);
@@ -10,5 +12,13 @@ int main() {
         std::cout << "Temperature: " << d.temperature << " °C, "
                   << "Pressure: " << d.pressure << " hPa\n";
     }
+
+    std::ofstream csv("sensor_data.csv");
+    csv << "temperature,pressure\n";
+    for (const auto& d : data) {
+        csv << d.temperature << "," << d.pressure << "\n";
+    }
+    csv.close();
+
     return 0;
 }
